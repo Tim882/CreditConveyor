@@ -1,0 +1,6 @@
+@CreditConveyor_HostAddress = http://localhost:5286
+
+GET {{CreditConveyor_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
