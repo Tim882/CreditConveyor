@@ -1,0 +1,43 @@
+create table CreditProducts (
+  Id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  Name text,
+  Rate numeric
+);
+
+create table Clients (
+  Id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  Name text,
+  Surname text,
+  Patronymic text,
+  Age integer,
+  WorkOfPlace text,
+  PhoneNumber text
+);
+
+create table CreditApplications (
+  Id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  Reason text,
+  Volume decimal,
+  ClientIncome decimal,
+  CreditProductId uuid references creditproducts (Id)
+);
+
+create table Calls (
+  Id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  AssignmentDate timestamp,
+  CallResult integer,
+  IsProcessed boolean
+);
+
+create table Operators (
+  Id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  name text
+);
+
+create table CallOperators (
+  Id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+  OperatorId uuid references operators (Id),
+  CallId uuid references calls (Id)
+);
+
+ALTER TABLE CallOperators ADD CONSTRAINT unique_call_id_operator_id UNIQUE (OperatorId, CallId);
